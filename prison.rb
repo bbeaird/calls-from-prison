@@ -6,8 +6,15 @@ get '/' do
   "Hello world!"
 end
 
-post '/receive-call-from-prankster' do
+get '/receive-call-from-prankster' do
   Twilio::TwiML::Response.new do |r|
-    r.Say "Greetings! Let's tell family or a friend that you're in jail. Please enter the recipient's phone number"
+    r.Gather numDigits: 10, action: 'receive-call-from-prankster/handle-gather', method: 'get' do |g|
+      g.Say "Greetings! Let's tell family or a friend that you're in jail. Please enter the recipient's phone number"
   end.text
+end
+
+get '/receive-call-from-prankster/handle-gather' do
+  Twilio::TwiML::Response.new do |r|
+
+  end
 end
